@@ -14,7 +14,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return response()->json(['app' => 'inamen']);
+    return response()->json(['appName' => 'inamen']);
 });
 
 $router->get('/test', function () use ($router) {
