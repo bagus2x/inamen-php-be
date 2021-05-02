@@ -17,6 +17,10 @@ $router->get('/', function () use ($router) {
     return response()->json(['app' => 'inamen']);
 });
 
+$router->get('/test', function () use ($router) {
+    return response()->json(['test' => 'aja']);
+});
+
 $router->group(['prefix' => '/api/v1'], function () use ($router) {
     $router->get('/user', 'UserController@find');
     $router->post('/user/signin', 'UserController@signin');
