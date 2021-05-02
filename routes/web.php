@@ -14,5 +14,11 @@
 */
 
 $router->get('/', function () use ($router) {
-    return response()->json(['nama' => 'bagus']);
+    return response()->json(['app' => 'inamen']);
+});
+
+$router->group(['prefix' => '/api/v1'], function () use ($router) {
+    $router->get('/user', 'UserController@find');
+    $router->post('/user/signin', 'UserController@signin');
+    $router->post('/user/signup', 'UserController@signup');
 });
