@@ -98,9 +98,10 @@ class UserController extends Controller
     {
         $payload = [
             'iss' => 'inamen.vercel.app',
-            'sub' => $user->id,
+            'sub' => strval($user->id), // https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2
             'iat' => time(),
-            'exp' => time() + 60 * 60
+            'exp' => time() + 60 * 60,
+            'username' => $user->username
         ];
 
         return JWT::encode($payload, env('ACCESS_TOKEN_SECRET'));
