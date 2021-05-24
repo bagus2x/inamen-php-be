@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'find']);
+        $this->middleware('auth', ['only' => ['find', 'update', 'delete']]);
     }
 
     public function signin(Request $request)
@@ -90,6 +90,30 @@ class UserController extends Controller
         if (!$user) {
             return $this->failure('User does not exist', 404);
         }
+
+        return $this->success($user);
+    }
+    public function update(Request $request) {
+        $user = User::find($request->userID);
+        if (!$user) {
+            return $this->failure('User does not exist', 404);
+        }
+
+        $user->username = $request->json('username');
+        $user->email = $request->json('email');
+        $user->password = Hash::make($request->json('password'));
+
+        $user->save();
+
+        return $this->success($user);
+    }
+    public function delete(Request $request) {
+        $user = User::find($request->userID);
+        if (!$user) {
+            return $this->failure('User does not exist', 404);
+        }
+
+        $user->forceDelete();
 
         return $this->success($user);
     }
